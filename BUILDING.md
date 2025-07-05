@@ -59,11 +59,20 @@ First, generate the 64-bit solution and project files using CMake:
 
 ```cmd
 mkdir build\win64
-cd build\win64
-cmake -G "Visual Studio [Version Number] Win64" ../..
+cd cmake -G "Visual Studio 17 2022" -A x64 ../..
+cmake -G "Visual Studio 17 2022" -A x64 ../..
 ```
 
-Finally, open the build\win64\OPENXR.sln in the Visual Studio to build the samples.
+Then, open the build\win64\OPENXR.sln in the Visual Studio to build the samples. Go to 'Samples'-'hello_xr' RIGHT-click this and 'Build'
+
+Finally, head to src\tests\hello_xr\Debug and run hello_xr.exe
+```cmd
+cd src\tests\hello_xr\Debug
+.\hello_xr.exe -g Vulkan
+```
+
+Replace Vulkan with other graphic API like D3D11 if you don't have Vulkan.
+
 
 #### VS2019
 
