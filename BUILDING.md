@@ -59,7 +59,7 @@ First, generate the 64-bit solution and project files using CMake:
 
 ```cmd
 mkdir build\win64
-cd cmake -G "Visual Studio 17 2022" -A x64 ../..
+cd build\win64
 cmake -G "Visual Studio 17 2022" -A x64 ../..
 ```
 
