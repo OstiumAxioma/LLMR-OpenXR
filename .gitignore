@@ -4,6 +4,9 @@
 
 /build/
 build*/
+/examples/quest_test_server/
+/examples/quest_test_server*/
+/examples/quest_test_server/*
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles

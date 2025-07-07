@@ -171,6 +171,10 @@ static void app_handle_cmd(struct android_app* app, int32_t cmd) {
             Log::Write(Log::Level::Info, "onDestroy()");
             Log::Write(Log::Level::Info, "    APP_CMD_DESTROY");
             appState->NativeWindow = NULL;
+            // Request exit when app is destroyed
+            if (app->destroyRequested == 0) {
+                app->destroyRequested = 1;
+            }
             break;
         }
         case APP_CMD_INIT_WINDOW: {

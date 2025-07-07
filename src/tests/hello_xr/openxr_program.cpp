@@ -14,6 +14,7 @@
 #include <array>
 #include <cmath>
 #include <set>
+#include <chrono>
 
 namespace {
 
@@ -858,7 +859,18 @@ struct OpenXrProgram : IOpenXrProgram {
         XrActionStateBoolean quitValue{XR_TYPE_ACTION_STATE_BOOLEAN};
         CHECK_XRCMD(xrGetActionStateBoolean(m_session, &getInfo, &quitValue));
         if ((quitValue.isActive == XR_TRUE) && (quitValue.changedSinceLastSync == XR_TRUE) && (quitValue.currentState == XR_TRUE)) {
+            Log::Write(Log::Level::Info, "Quit action triggered - requesting session exit");
             CHECK_XRCMD(xrRequestExitSession(m_session));
+        }
+        
+        // Add timeout-based exit for testing (exit after 30 seconds if no interaction)
+        static auto startTime = std::chrono::steady_clock::now();
+        auto currentTime = std::chrono::steady_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(currentTime - startTime);
+        if (elapsed.count() > 30) {
+            Log::Write(Log::Level::Info, "Timeout reached - requesting session exit");
+            CHECK_XRCMD(xrRequestExitSession(m_session));
+            startTime = currentTime; // Reset timer
         }
     }
 
